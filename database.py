@@ -43,6 +43,7 @@ def get_activities():
 
     results = cursor.fetchall()
     connection.close()
+    
     return results
 
 
@@ -59,6 +60,7 @@ def get_activities_by_subject(subject):
 
     results = cursor.fetchall()
     connection.close()
+
     return results
 
 
@@ -76,8 +78,11 @@ def update_activity(id, subject, topic, duration, date):
         (subject, topic, duration, date, id)
     )
 
+    affected = cursor.rowcount
     connection.commit()
     connection.close()
+
+    return affected
 
 
 def delete_activity(id):
@@ -90,5 +95,40 @@ def delete_activity(id):
         (id,)
     )
 
+    affected = cursor.rowcount
     connection.commit()
     connection.close()
+
+    return affected
+
+
+def get_total_learning_time():
+
+    connection = sqlite3.connect("learning.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT SUM(duration) "
+        "FROM activities;"
+    )
+
+    result = cursor.fetchone()
+    connection.close()
+
+    return result[0] if result[0] is not None else 0
+
+
+def get_learning_time_by_subject(subject):
+
+    connection = sqlite3.connect("learning.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT SUM(duration) "
+        "FROM activities "
+        "WHERE subject = ?;",
+        (subject,)
+    )
+
+    result = cursor.fetchone()
+    connection.close()
+
+    return result[0] if result[0] is not None else 0

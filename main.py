@@ -1,6 +1,7 @@
 import sys
 import database as db
 
+
 class ActivityTracker:
 
 
@@ -9,51 +10,29 @@ class ActivityTracker:
 
 
     def add_activity(self, subject: str, topic: str, duration: float, date: str):
-        #activity = {"subject": subject,
-        #            "topic": topic,
-        #            "duration": duration,
-        #            "date": date}
-
         db.insert_activity(subject, topic, duration, date)
-        #self.activities.append(activity)
 
 
     def update_activity(self, id: int, subject: str, topic: str, duration: float, date: str):
-        db.update_activity(id, subject, topic, duration, date)
+        return db.update_activity(id, subject, topic, duration, date) 
 
 
     def delete_activity(self, id):
-        db.delete_activity(id)
+        return db.delete_activity(id)
 
 
     def calculate_total_time(self):
-        total = 0
-        for activity in self.activities:
-            total += activity["duration"]
-
-        return total
+        return db.get_total_learning_time()
 
 
     def calculate_time_by_subject(self, subject: str):
-        total = 0
-        for activity in self.activities:
-            if activity["subject"] == subject:
-                total += activity["duration"]
-
-        return total
+        return db.get_learning_time_by_subject(subject)
 
 
     def show_activities(self):
-        """ ret = "\n==================Activities=================\n"
-        
-        for activity in self.activities:
-            for key in activity:
-                ret += f"{key}: {activity[key]}\n"
-            ret += "\n"
-        return ret """
-
         activities = db.get_activities()
         ret = ""
+
         for activity in activities:
             ret += "ID: " + str(activity[0]) + "\n"
             ret += "Subject: " + str(activity[1]) + "\n"
@@ -61,28 +40,23 @@ class ActivityTracker:
             ret += "Duration: " + str(activity[3]) + "\n"
             ret += "Date: " + str(activity[4]) + "\n"
             ret += "\n"
+
         return ret
 
 
     def show_activities_by_subject(self, subject: str):
-            """ ret = "\n==================Activities=================\n"
-            
-            for activity in self.activities:
-                for key in activity:
-                    ret += f"{key}: {activity[key]}\n"
-                ret += "\n"
-            return ret """
-    
-            activities = db.get_activities_by_subject(subject)
-            ret = ""
-            for activity in activities:
-                ret += "ID: " + str(activity[0]) + "\n"
-                ret += "Subject: " + str(activity[1]) + "\n"
-                ret += "Topic: " + str(activity[2]) + "\n"
-                ret += "Duration: " + str(activity[3]) + "\n"
-                ret += "Date: " + str(activity[4]) + "\n"
-                ret += "\n"
-            return ret
+        activities = db.get_activities_by_subject(subject)
+        ret = ""
+
+        for activity in activities:
+            ret += "ID: " + str(activity[0]) + "\n"
+            ret += "Subject: " + str(activity[1]) + "\n"
+            ret += "Topic: " + str(activity[2]) + "\n"
+            ret += "Duration: " + str(activity[3]) + "\n"
+            ret += "Date: " + str(activity[4]) + "\n"
+            ret += "\n"
+
+        return ret
 
 
 if __name__ == "__main__":
@@ -105,19 +79,21 @@ if __name__ == "__main__":
         if choice == 1:
             subject = input("Subject: ")
             topic = input("Topic: ")
-            duration = float(input("Duration: "))
+            duration = float(input("Duration (min): "))
             date = input("Date: ")
             tracker.add_activity(subject, topic, duration, date)
         elif choice == 2:
             id = input("Id: ")
             subject = input("Subject: ")
             topic = input("Topic: ")
-            duration = float(input("Duration: "))
+            duration = float(input("Duration (min): "))
             date = input("Date: ")
-            tracker.update_activity(id, subject, topic, duration, date)
+            if tracker.update_activity(id, subject, topic, duration, date) == 0:
+                print("\nNo match found.")
         elif choice == 3:
             id = input("Id: ")
-            tracker.delete_activity(id)
+            if tracker.delete_activity(id) == 0:
+                print("\nNo match found.")
         elif choice == 4:
             print("\n==================Activities=================\n")
             print(tracker.show_activities())
@@ -126,7 +102,7 @@ if __name__ == "__main__":
             print("\n==================Activities=================\n")
             print(tracker.show_activities_by_subject(subject))
         elif choice == 6:
-            print(tracker.calculate_total_time(), " min\n")
+            print(tracker.calculate_total_time(), "min\n")
         elif choice == 7:
             subject = input("Which subject? ")
             print(tracker.calculate_time_by_subject(subject), " min\n")
