@@ -1,4 +1,5 @@
 import sys
+import database as db
 
 class ActivityTracker:
 
@@ -8,12 +9,13 @@ class ActivityTracker:
 
 
     def add_activity(self, subject: str, topic: str, duration: float, date: str):
-        activity = {"subject": subject,
-                    "topic": topic,
-                    "duration": duration,
-                    "date": date}
+        #activity = {"subject": subject,
+        #            "topic": topic,
+        #            "duration": duration,
+        #            "date": date}
 
-        self.activities.append(activity)
+        db.insert_activity(subject, topic, duration, date)
+        #self.activities.append(activity)
 
 
     def calculate_total_time(self):
@@ -33,22 +35,55 @@ class ActivityTracker:
         return total
 
 
-    def __str__(self):
-        ret = "\n==================Activities=================\n"
+    def show_activities(self):
+        """ ret = "\n==================Activities=================\n"
         
         for activity in self.activities:
             for key in activity:
                 ret += f"{key}: {activity[key]}\n"
             ret += "\n"
+        return ret """
+
+        activities = db.get_activities()
+        ret = ""
+        for activity in activities:
+            ret += "ID: " + str(activity[0]) + "\n"
+            ret += "Subject: " + str(activity[1]) + "\n"
+            ret += "Topic: " + str(activity[2]) + "\n"
+            ret += "Duration: " + str(activity[3]) + "\n"
+            ret += "Date: " + str(activity[4]) + "\n"
+            ret += "\n"
         return ret
 
 
+    def show_activities_by_subject(self, subject: str):
+            """ ret = "\n==================Activities=================\n"
+            
+            for activity in self.activities:
+                for key in activity:
+                    ret += f"{key}: {activity[key]}\n"
+                ret += "\n"
+            return ret """
+    
+            activities = db.get_activities_by_subject(subject)
+            ret = ""
+            for activity in activities:
+                ret += "ID: " + str(activity[0]) + "\n"
+                ret += "Subject: " + str(activity[1]) + "\n"
+                ret += "Topic: " + str(activity[2]) + "\n"
+                ret += "Duration: " + str(activity[3]) + "\n"
+                ret += "Date: " + str(activity[4]) + "\n"
+                ret += "\n"
+            return ret
+
+
 if __name__ == "__main__":
+    db.initialize_database()
     tracker = ActivityTracker()
 
     while True:
         print("=====================Menu====================\n")
-        print("1. Add activity\n2. Show activities\n3. Calculate total learning time\n4. Calculate time by subject\n5. Quit")
+        print("1. Add activity\n2. Show activities\n3. Show activities by subject\n4. Calculate total learning time\n5. Calculate time by subject\n6. Quit")
         choice = int(input("What do you want to do? "))
 
         if choice == 1:
@@ -58,14 +93,18 @@ if __name__ == "__main__":
             date = input("Date: ")
             tracker.add_activity(subject, topic, duration, date)
         elif choice == 2:
-            print(tracker)
+            print("\n==================Activities=================\n")
+            print(tracker.show_activities())
         elif choice == 3:
-            print(tracker.calculate_total_time(), " min\n")
+            subject = input("Which subject? ")
+            print("\n==================Activities=================\n")
+            print(tracker.show_activities_by_subject(subject))
         elif choice == 4:
+            print(tracker.calculate_total_time(), " min\n")
+        elif choice == 5:
             subject = input("Which subject? ")
             print(tracker.calculate_time_by_subject(subject), " min\n")
-        elif choice == 5:
+        elif choice == 6:
             sys.exit()
         else:
             print("Please choose an option.\n")
-    
