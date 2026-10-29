@@ -18,6 +18,14 @@ class ActivityTracker:
         #self.activities.append(activity)
 
 
+    def update_activity(self, id: int, subject: str, topic: str, duration: float, date: str):
+        db.update_activity(id, subject, topic, duration, date)
+
+
+    def delete_activity(self, id):
+        db.delete_activity(id)
+
+
     def calculate_total_time(self):
         total = 0
         for activity in self.activities:
@@ -83,8 +91,16 @@ if __name__ == "__main__":
 
     while True:
         print("=====================Menu====================\n")
-        print("1. Add activity\n2. Show activities\n3. Show activities by subject\n4. Calculate total learning time\n5. Calculate time by subject\n6. Quit")
-        choice = int(input("What do you want to do? "))
+        print("1. Add activity\n"
+              "2. Update activity\n"
+              "3. Delete activity\n"
+              "4. Show activities\n"
+              "5. Show activities by subject\n"
+              "6. Calculate total learning time\n"
+              "7. Calculate time by subject\n"
+              "8. Quit")
+        
+        choice = int(input("\nWhat do you want to do? "))
 
         if choice == 1:
             subject = input("Subject: ")
@@ -93,18 +109,28 @@ if __name__ == "__main__":
             date = input("Date: ")
             tracker.add_activity(subject, topic, duration, date)
         elif choice == 2:
+            id = input("Id: ")
+            subject = input("Subject: ")
+            topic = input("Topic: ")
+            duration = float(input("Duration: "))
+            date = input("Date: ")
+            tracker.update_activity(id, subject, topic, duration, date)
+        elif choice == 3:
+            id = input("Id: ")
+            tracker.delete_activity(id)
+        elif choice == 4:
             print("\n==================Activities=================\n")
             print(tracker.show_activities())
-        elif choice == 3:
+        elif choice == 5:
             subject = input("Which subject? ")
             print("\n==================Activities=================\n")
             print(tracker.show_activities_by_subject(subject))
-        elif choice == 4:
+        elif choice == 6:
             print(tracker.calculate_total_time(), " min\n")
-        elif choice == 5:
+        elif choice == 7:
             subject = input("Which subject? ")
             print(tracker.calculate_time_by_subject(subject), " min\n")
-        elif choice == 6:
+        elif choice == 8:
             sys.exit()
         else:
             print("Please choose an option.\n")
