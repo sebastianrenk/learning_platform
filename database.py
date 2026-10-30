@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 def initialize_database():
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS activities (
@@ -22,7 +22,7 @@ def initialize_database():
 
 def insert_activity(subject, topic, duration, date):
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "INSERT INTO activities (subject, topic, duration, date) VALUES (?, ?, ?, ?)",
@@ -35,7 +35,7 @@ def insert_activity(subject, topic, duration, date):
 
 def get_activities():
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT * FROM activities " 
@@ -50,7 +50,7 @@ def get_activities():
 
 def get_activities_by_subject(subject):
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT * FROM activities "
@@ -67,7 +67,7 @@ def get_activities_by_subject(subject):
 
 def update_activity(id, subject, topic, duration, date):
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "UPDATE activities "
@@ -88,7 +88,7 @@ def update_activity(id, subject, topic, duration, date):
 
 def delete_activity(id):
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "DELETE FROM activities "
@@ -105,7 +105,7 @@ def delete_activity(id):
 
 def get_total_learning_time():
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT SUM(duration) "
@@ -120,7 +120,7 @@ def get_total_learning_time():
 
 def get_learning_time_by_subject(subject):
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT SUM(duration) "
@@ -137,7 +137,7 @@ def get_learning_time_by_subject(subject):
 
 def get_subjects():
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT DISTINCT subject "
@@ -159,7 +159,7 @@ def get_weekly_statistics():
     start_date = monday.isoformat()
     end_date = next_monday.isoformat()
 
-    connection = sqlite3.connect("learning.db")
+    connection = sqlite3.connect("database/learning.db")
     cursor = connection.cursor()
     cursor.execute(
         "SELECT SUM(duration), COUNT(*) "
