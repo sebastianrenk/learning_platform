@@ -9,11 +9,11 @@ class ActivityTracker:
         self.activities = []
 
 
-    def add_activity(self, subject: str, topic: str, duration: float, date: str):
+    def add_activity(self, subject: str, topic: str, duration: int, date: str):
         db.insert_activity(subject, topic, duration, date)
 
 
-    def update_activity(self, id: int, subject: str, topic: str, duration: float, date: str):
+    def update_activity(self, id: int, subject: str, topic: str, duration: int, date: str):
         return db.update_activity(id, subject, topic, duration, date) 
 
 
@@ -59,6 +59,32 @@ class ActivityTracker:
         return ret
 
 
+    def get_subjects(self):
+        return db.get_subjects()
+
+
+    def show_weekly_statistics(self):
+        result = db.get_weekly_statistics()
+
+        ret = ""
+        ret += "Learning time: " + str(display_time((result[0]))) + "\n"
+        ret += "Number of sessions: " + str(result[1])
+
+        return ret
+
+
+def display_time(minutes: int):
+    hours = int(minutes / 60)
+    remaining_minutes = minutes % 60
+
+    ret = ""
+    if hours > 0:
+        ret += str(hours) + " h "
+    ret += str(remaining_minutes) + " min"
+
+    return ret
+
+
 if __name__ == "__main__":
     db.initialize_database()
     tracker = ActivityTracker()
@@ -70,43 +96,64 @@ if __name__ == "__main__":
               "3. Delete activity\n"
               "4. Show activities\n"
               "5. Show activities by subject\n"
-              "6. Calculate total learning time\n"
-              "7. Calculate time by subject\n"
-              "8. Quit")
+              "6. Show statistics\n"
+              "7. Quit")
         
         choice = int(input("\nWhat do you want to do? "))
 
         if choice == 1:
+
             subject = input("Subject: ")
             topic = input("Topic: ")
-            duration = float(input("Duration (min): "))
+            duration = int(input("Duration (min): "))
             date = input("Date: ")
             tracker.add_activity(subject, topic, duration, date)
+
         elif choice == 2:
+
             id = input("Id: ")
             subject = input("Subject: ")
             topic = input("Topic: ")
-            duration = float(input("Duration (min): "))
+            duration = int(input("Duration (min): "))
             date = input("Date: ")
             if tracker.update_activity(id, subject, topic, duration, date) == 0:
                 print("\nNo match found.")
+
         elif choice == 3:
+
             id = input("Id: ")
             if tracker.delete_activity(id) == 0:
                 print("\nNo match found.")
+
         elif choice == 4:
+
             print("\n==================Activities=================\n")
             print(tracker.show_activities())
+
         elif choice == 5:
+
             subject = input("Which subject? ")
             print("\n==================Activities=================\n")
             print(tracker.show_activities_by_subject(subject))
+
         elif choice == 6:
-            print(tracker.calculate_total_time(), "min\n")
+
+            print("\n=================Learning Stats================\n")
+            print("Total learning time: ", display_time(tracker.calculate_total_time()), "\n")
+
+            print("Time by subject: \n")
+            subjects = tracker.get_subjects()
+            for subject in subjects:
+                print(subject, display_time(tracker.calculate_time_by_subject(subject)))
+            print("\n")
+
+            print("This week:\n")
+            print(tracker.show_weekly_statistics(), "\n")
+
         elif choice == 7:
-            subject = input("Which subject? ")
-            print(tracker.calculate_time_by_subject(subject), " min\n")
-        elif choice == 8:
+
             sys.exit()
+
         else:
+
             print("Please choose an option.\n")

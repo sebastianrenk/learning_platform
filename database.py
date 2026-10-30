@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import date, timedelta
 
 
 def initialize_database():
@@ -132,3 +133,42 @@ def get_learning_time_by_subject(subject):
     connection.close()
 
     return result[0] if result[0] is not None else 0
+
+
+def get_subjects():
+
+    connection = sqlite3.connect("learning.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT DISTINCT subject "
+        "FROM activities;"
+    )
+
+    results = cursor.fetchall()
+    connection.close()
+
+    return [row[0] for row in results]
+
+
+def get_weekly_statistics():
+
+    today = date.today()
+    monday = today - timedelta(days=today.weekday())
+    next_monday = monday + timedelta(days=7)
+
+    start_date = monday.isoformat()
+    end_date = next_monday.isoformat()
+
+    connection = sqlite3.connect("learning.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT SUM(duration), COUNT(*) "
+        "FROM activities "
+        "WHERE date >= ? AND date < ?;",
+        (start_date, end_date)
+    )
+
+    result = cursor.fetchone()
+    connection.close()
+
+    return result
