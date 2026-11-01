@@ -1,5 +1,6 @@
 import sys
 import database as db
+from datetime import datetime
 from tracker import ActivityTracker
 
 
@@ -18,20 +19,25 @@ if __name__ == "__main__":
               "5. Show activities by subject\n"
               "6. Show statistics\n"
               "7. Quit")
-        
-        choice = int(input("\nWhat do you want to do? "))
+
+        try:
+            choice = int(input("\nWhat do you want to do? "))
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
 
         if choice == 1:
 
             subject = input("Subject: ")
             topic = input("Topic: ")
             duration = int(input("Duration (min): "))
-            date = input("Date: ")
+            date = input("Date (YYYY-MM-DD): ") 
             tracker.add_activity(subject, topic, duration, date)
+            
 
         elif choice == 2:
 
-            id = input("Id: ")
+            id = int(input("Id: "))
             subject = input("Subject: ")
             topic = input("Topic: ")
             duration = int(input("Duration (min): "))
@@ -41,7 +47,7 @@ if __name__ == "__main__":
 
         elif choice == 3:
 
-            id = input("Id: ")
+            id = int(input("Id: "))
             if tracker.delete_activity(id) == 0:
                 print("\nNo match found.")
 
