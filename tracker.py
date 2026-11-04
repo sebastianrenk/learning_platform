@@ -143,6 +143,10 @@ class ActivityTracker:
         #return db.get_weekly_statistics()
 
 
+    def get_weekly_statistics(self):
+        return db.get_weekly_statistics()
+
+
     def display_time(self, minutes: int):
 
         if isinstance(minutes, bool) or not isinstance(minutes, int):
