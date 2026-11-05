@@ -14,5 +14,18 @@
     <h2>This week</h2>
     <p>Learning time: {{weekly_stats[0] }} minutes</p>
     <p>Number of sessions: {{ weekly_stats[1] }}</p>
+
+    <h2>Add activity</h2>
+    <form method="POST">
+        <label for="subject">Subject:</label><br>
+        <input type="text" id="subject" name="subject" required><br>
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="topic" required><br>
+        <label for="duration">Duration:</label><br>
+        <input type="number" id="duration" name="duration" min="1" required><br>
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" required><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
