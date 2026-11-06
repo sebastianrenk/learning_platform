@@ -16,7 +16,7 @@
     <p>Number of sessions: {{ weekly_stats[1] }}</p>
 
     <h2>Add activity</h2>
-    <form method="POST">
+    <form action="{{ url_for('add_activity') }}" method="POST">
         <label for="subject">Subject:</label><br>
         <input type="text" id="subject" name="subject" required><br>
         <label for="topic">Topic:</label><br>
@@ -27,5 +27,24 @@
         <input type="date" id="date" name="date" required><br>
         <input type="submit" value="Submit">
     </form>
+
+    <h2>All activities</h2>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Topic</th>
+            <th>Duration</th>
+            <th>Date</th>
+        </tr>
+        <!-- Jinja loops through activities -->
+        {% for activity in activities %}
+        <tr>
+            <td>{{ activity[1] }}</td>
+            <td>{{ activity[2] }}</td>
+            <td>{{ activity[3] }}</td>
+            <td>{{ activity[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

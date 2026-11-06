@@ -103,7 +103,10 @@ class ActivityTracker:
         if not activities:
             return "No activities found."
         return ret
-        #return db.get_activities()
+
+
+    def get_activities(self):
+        return db.get_activities()
 
 
     def show_activities_by_subject(self, subject: str):
