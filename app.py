@@ -30,5 +30,27 @@ def add_activity():
     return redirect(url_for("home"))
 
 
+@app.route("/delete", methods=["POST"])
+def delete_activity():
+    id = int(request.form["id"])
+
+    tracker.delete_activity(id)
+
+    return redirect(url_for("home"))
+
+
+@app.route("/edit", methods=["POST"])
+def edit_activity():
+    id = int(request.form["id"])
+    subject = request.form["subject"]
+    topic = request.form["topic"]
+    duration = int(request.form["duration"])
+    date = request.form["date"]
+
+    tracker.update_activity(id, subject, topic, duration, date)
+
+    return redirect(url_for("home"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
