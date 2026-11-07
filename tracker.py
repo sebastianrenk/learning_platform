@@ -135,6 +135,16 @@ class ActivityTracker:
         return db.get_subjects()
 
 
+    def get_activity_by_id(self, id):
+
+        if isinstance(id, bool) or not isinstance(id, int):
+            raise TypeError("ID must be an integer.")
+        if id <= 0:
+            raise ValueError("Id must be >= 1.")
+        
+        return db.get_activity_by_id(id)
+
+
     def show_weekly_statistics(self):
         result = db.get_weekly_statistics()
 

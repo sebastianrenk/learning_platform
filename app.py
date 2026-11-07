@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 from tracker import ActivityTracker
 
 
@@ -39,17 +39,23 @@ def delete_activity():
     return redirect(url_for("home"))
 
 
-@app.route("/edit", methods=["POST"])
-def edit_activity():
-    id = int(request.form["id"])
-    subject = request.form["subject"]
-    topic = request.form["topic"]
-    duration = int(request.form["duration"])
-    date = request.form["date"]
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit_activity(id):
+    if request.method == "POST":
+        subject = request.form["subject"]
+        topic = request.form["topic"]
+        duration = int(request.form["duration"])
+        date = request.form["date"]
 
-    tracker.update_activity(id, subject, topic, duration, date)
+        tracker.update_activity(id, subject, topic, duration, date)
+        
+        return redirect(url_for("home"))
 
-    return redirect(url_for("home"))
+    activity = tracker.get_activity_by_id(id)
+    if activity is None:
+        abort(404)
+
+    return render_template("edit.html", activity=activity)
 
 
 if __name__ == "__main__":

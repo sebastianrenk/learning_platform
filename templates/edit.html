@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit activity</title>
+</head>
+<body>
+    
+    <h1>Edit activity</h1>
+
+    <form action="{{ url_for('edit_activity', id=activity[0]) }}" method="POST">
+        <label for="subject">Subject:</label><br>
+        <input type="text" id="subject" name="subject" value="{{ activity[1] }}" required><br>
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="topic" value="{{ activity[2] }}" required><br>
+        <label for="duration">Duration:</label><br>
+        <input type="number" id="duration" name="duration" min="1" value="{{ activity[3] }}" required><br>
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" value="{{ activity[4] }}" required><br>
+        <input type="submit" value="Save changes">
+    </form>
+
+</body>
+</html>

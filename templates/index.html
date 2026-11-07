@@ -28,21 +28,6 @@
         <input type="submit" value="Submit">
     </form>
 
-    <h2>Edit activity</h2>
-    <form action="{{ url_for('edit_activity') }}" method="POST">
-        <label for="id">ID:</label><br>
-        <input type="number" id="id" name="id" required></label><br>
-        <label for="subject">Subject:</label><br>
-        <input type="text" id="subject" name="subject" required><br>
-        <label for="topic">Topic:</label><br>
-        <input type="text" id="topic" name="topic" required><br>
-        <label for="duration">Duration:</label><br>
-        <input type="number" id="duration" name="duration" min="1" required><br>
-        <label for="date">Date:</label><br>
-        <input type="date" id="date" name="date" required><br>
-        <input type="submit" value="Submit">
-    </form>
-
     <h2>Delete activity</h2>
     <form action="{{ url_for('delete_activity') }}" method="POST">
         <label for="id">ID:</label><br>
@@ -52,20 +37,25 @@
     <h2>All activities</h2>
     <table>
         <tr>
+            <th>ID</th>
             <th>Subject</th>
             <th>Topic</th>
             <th>Duration</th>
             <th>Date</th>
-            <th>ID</th>
         </tr>
         <!-- Jinja loops through activities -->
         {% for activity in activities %}
         <tr>
+            <td>{{ activity[0] }}</td>
             <td>{{ activity[1] }}</td>
             <td>{{ activity[2] }}</td>
             <td>{{ activity[3] }}</td>
             <td>{{ activity[4] }}</td>
-            <td>{{ activity[0] }}</td>
+            <td>
+                <a href="{{ url_for('edit_activity', id=activity[0]) }}">
+                    Edit
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>

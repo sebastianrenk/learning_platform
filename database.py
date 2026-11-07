@@ -86,6 +86,22 @@ def update_activity(id, subject, topic, duration, date):
     return affected > 0
 
 
+def get_activity_by_id(id):
+
+    with closing(sqlite3.connect("database/learning.db")) as connection:
+        with connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                "SELECT * FROM activities "
+                "WHERE id = ?;",
+                (id,)
+            )
+
+            results = cursor.fetchone()
+
+    return results
+
+
 def delete_activity(id):
 
     with closing(sqlite3.connect("database/learning.db")) as connection:
