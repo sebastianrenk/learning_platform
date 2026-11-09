@@ -12,10 +12,17 @@ tracker = ActivityTracker()
 def home():
     total_time = tracker.calculate_total_time()
     weekly_stats = tracker.get_weekly_statistics()
-    activities = tracker.get_activities()
+
+    subject = request.args.get("subject")
+    subjects = tracker.get_subjects()
+
+    if subject in subjects:
+        activities = tracker.get_activities_by_subject(subject)
+    else:
+        activities = tracker.get_activities()
 
     # variables in render_template become accessible in html
-    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, activities=activities)
+    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, subjects=subjects, activities=activities)
 
 
 @app.route("/add", methods=["POST"])

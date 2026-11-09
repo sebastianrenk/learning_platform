@@ -116,7 +116,6 @@ class ActivityTracker:
         if not subject.strip():
             raise ValueError("Subject cannot be empty.")
 
-        #return db.get_activities_by_subject(subject)
         activities = db.get_activities_by_subject(subject)
         ret = ""
 
@@ -129,6 +128,16 @@ class ActivityTracker:
             ret += "\n"
 
         return ret
+
+
+    def get_activities_by_subject(self, subject: str):
+        
+        if not isinstance(subject, str):
+            raise TypeError("Subject must be a string.")
+        if not subject.strip():
+            raise ValueError("Subject cannot be empty.")
+
+        return db.get_activities_by_subject(subject)
 
 
     def get_subjects(self):

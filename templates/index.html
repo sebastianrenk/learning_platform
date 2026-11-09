@@ -34,7 +34,18 @@
         <input type="number" id="id" name="id" required>
     </form>
 
-    <h2>All activities</h2>
+    <h2>Activities</h2>
+
+    <form action="{{ url_for('home') }}" method="GET">
+        <select name="subject">
+                <option value="">All subjects</option>
+            {% for subject in subjects %}
+                <option value="{{ subject }}">{{ subject }}</option>
+            {% endfor %}
+            <input type="submit" value="Filter">
+        </select>
+    </form>
+
     <table>
         <tr>
             <th>ID</th>
