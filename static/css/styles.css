@@ -1,3 +1,45 @@
-h1 {
-    color: red;
+:root {
+    --card: #26372E;
+    --background: #18231E;   
+    --text-color: #E5EDE6;
+    --accent: #A2B99F;
+    --borders: #3A5042;
+} 
+
+* {
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: var(--background);
+    accent-color: var(--accent);
+    color: var(--text-color);
+    font-family: sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.activities-table {
+    grid-column: span 2;
+}
+
+.card {
+    background-color: var(--card);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
 }

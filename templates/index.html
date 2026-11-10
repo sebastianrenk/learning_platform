@@ -7,69 +7,84 @@
     <title>Learning Platform</title>
 </head>
 <body>
-    <h1>Learning Platform</h1>
+    <header class="header">
+        <h1>Learning Platform</h1>
+    </header>
 
-    <h2>Total learning time</h2>
-    <p>{{ total_time }} minutes</p>
-    
-    <h2>This week</h2>
-    <p>Learning time: {{weekly_stats[0] }} minutes</p>
-    <p>Number of sessions: {{ weekly_stats[1] }}</p>
+    <main class="dashboard">
+        <section class="card">
+            <div class="stats">
+                <p>Total learning time</p>
+                <h2>{{ total_time }} minutes</h2>
+            </div>
+            <div class="stats">
+                <p>This week</p>
+                <h2>{{ weekly_stats[0] }} minutes</h2>
+                <p>{{ weekly_stats[1] }} sessions</p>
+            </div>
+        </section>
 
-    <h2>Add activity</h2>
-    <form action="{{ url_for('add_activity') }}" method="POST">
-        <label for="subject">Subject:</label><br>
-        <input type="text" id="subject" name="subject" required><br>
-        <label for="topic">Topic:</label><br>
-        <input type="text" id="topic" name="topic" required><br>
-        <label for="duration">Duration:</label><br>
-        <input type="number" id="duration" name="duration" min="1" required><br>
-        <label for="date">Date:</label><br>
-        <input type="date" id="date" name="date" required><br>
-        <input type="submit" value="Submit">
-    </form>
+        <section class="add-activity card">
+            <h2>Add activity</h2>
+            <form action="{{ url_for('add_activity') }}" method="POST">
+                <label for="subject">Subject:</label><br>
+                <input type="text" id="subject" name="subject" required><br>
+                <label for="topic">Topic:</label><br>
+                <input type="text" id="topic" name="topic" required><br>
+                <label for="duration">Duration:</label><br>
+                <input type="number" id="duration" name="duration" min="1" required><br>
+                <label for="date">Date:</label><br>
+                <input type="date" id="date" name="date" required><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
 
-    <h2>Delete activity</h2>
-    <form action="{{ url_for('delete_activity') }}" method="POST">
-        <label for="id">ID:</label><br>
-        <input type="number" id="id" name="id" required>
-    </form>
+        <section class="delete-activity card">
+            <h2>Delete activity</h2>
+            <form action="{{ url_for('delete_activity') }}" method="POST">
+                <label for="id">ID:</label><br>
+                <input type="number" id="id" name="id" required>
+            </form>
+        </section>
 
-    <h2>Activities</h2>
+        <section class="activities-table card">
+            <h2>Activities</h2>
 
-    <form action="{{ url_for('home') }}" method="GET">
-        <select name="subject">
-                <option value="">All subjects</option>
-            {% for subject in subjects %}
-                <option value="{{ subject }}">{{ subject }}</option>
-            {% endfor %}
-            <input type="submit" value="Filter">
-        </select>
-    </form>
+            <form action="{{ url_for('home') }}" method="GET">
+                <select name="subject">
+                        <option value="">All subjects</option>
+                    {% for subject in subjects %}
+                        <option value="{{ subject }}">{{ subject }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Filter">
+            </form>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Subject</th>
-            <th>Topic</th>
-            <th>Duration</th>
-            <th>Date</th>
-        </tr>
-        <!-- Jinja loops through activities -->
-        {% for activity in activities %}
-        <tr>
-            <td>{{ activity[0] }}</td>
-            <td>{{ activity[1] }}</td>
-            <td>{{ activity[2] }}</td>
-            <td>{{ activity[3] }}</td>
-            <td>{{ activity[4] }}</td>
-            <td>
-                <a href="{{ url_for('edit_activity', id=activity[0]) }}">
-                    Edit
-                </a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>Topic</th>
+                    <th>Duration</th>
+                    <th>Date</th>
+                </tr>
+                <!-- Jinja loops through activities -->
+                {% for activity in activities %}
+                <tr>
+                    <td>{{ activity[0] }}</td>
+                    <td>{{ activity[1] }}</td>
+                    <td>{{ activity[2] }}</td>
+                    <td>{{ activity[3] }}</td>
+                    <td>{{ activity[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_activity', id=activity[0]) }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </main>
 </body>
 </html>
