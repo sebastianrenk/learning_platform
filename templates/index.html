@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Learning Platform</title>
 </head>
 <body>
@@ -13,11 +13,11 @@
 
     <main class="dashboard">
         <section class="card">
-            <div class="stats">
+            <div class="statistics">
                 <p>Total learning time</p>
                 <h2>{{ total_time }} minutes</h2>
             </div>
-            <div class="stats">
+            <div class="statistics">
                 <p>This week</p>
                 <h2>{{ weekly_stats[0] }} minutes</h2>
                 <p>{{ weekly_stats[1] }} sessions</p>
@@ -44,6 +44,7 @@
             <form action="{{ url_for('delete_activity') }}" method="POST">
                 <label for="id">ID:</label><br>
                 <input type="number" id="id" name="id" required>
+                <input type="submit" value="Delete">
             </form>
         </section>
 
