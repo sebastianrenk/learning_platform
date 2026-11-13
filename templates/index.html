@@ -12,39 +12,39 @@
     </header>
 
     <main class="dashboard">
-        <section class="card">
-            <div class="statistics">
+        <section class="card statistics">
+            <div>
                 <p>Total learning time</p>
                 <h2>{{ total_time }} minutes</h2>
             </div>
-            <div class="statistics">
+            <div>
                 <p>This week</p>
                 <h2>{{ weekly_stats[0] }} minutes</h2>
                 <p>{{ weekly_stats[1] }} sessions</p>
             </div>
         </section>
 
-        <section class="add-activity card">
+        <section class="card add-activity">
             <h2>Add activity</h2>
             <form action="{{ url_for('add_activity') }}" method="POST">
-                <label for="subject">Subject:</label><br>
+                <label for="subject">Subject</label><br>
                 <input type="text" id="subject" name="subject" required><br>
-                <label for="topic">Topic:</label><br>
+                <label for="topic">Topic</label><br>
                 <input type="text" id="topic" name="topic" required><br>
-                <label for="duration">Duration:</label><br>
+                <label for="duration">Duration</label><br>
                 <input type="number" id="duration" name="duration" min="1" required><br>
-                <label for="date">Date:</label><br>
+                <label for="date">Date</label><br>
                 <input type="date" id="date" name="date" required><br>
-                <input type="submit" value="Submit">
+                <button type="submit">Add activity</button>
             </form>
         </section>
 
-        <section class="delete-activity card">
+        <section class="card delete">
             <h2>Delete activity</h2>
             <form action="{{ url_for('delete_activity') }}" method="POST">
                 <label for="id">ID:</label><br>
-                <input type="number" id="id" name="id" required>
-                <input type="submit" value="Delete">
+                <input type="number" id="id" name="id" required><br>
+                <button type="submit">Delete</button>
             </form>
         </section>
 
@@ -57,8 +57,8 @@
                     {% for subject in subjects %}
                         <option value="{{ subject }}">{{ subject }}</option>
                     {% endfor %}
-                </select>
-                <input type="submit" value="Filter">
+                </select><br>
+                <button type="submit">Filter</button>
             </form>
 
             <table>
@@ -79,7 +79,7 @@
                     <td>{{ activity[4] }}</td>
                     <td>
                         <a href="{{ url_for('edit_activity', id=activity[0]) }}">
-                            Edit
+                            <button type="submit">Edit</button>
                         </a>
                     </td>
                 </tr>
