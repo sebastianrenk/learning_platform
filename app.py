@@ -22,7 +22,7 @@ def home():
         activities = tracker.get_activities()
 
     # variables in render_template become accessible in html
-    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, subjects=subjects, activities=activities)
+    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, subject=subject, subjects=subjects, activities=activities)
 
 
 @app.route("/add", methods=["POST"])

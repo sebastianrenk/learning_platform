@@ -31,7 +31,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5em;
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 2em auto;
     padding: 0 1em;
 }
@@ -51,26 +51,33 @@ body {
     gap: 1em;
 }
 
-/* add activity FORM */
+/* add activity */
 .add-activity form,
 .delete form, 
 .activities-table form {
     flex-direction: column;
     display: flex;
+    gap: 0.7em;
+}
+
+.add-activity {
+    grid-row: span 2;
 }
 
 /* edit page */
 .edit form {
     display: flex;
     flex-direction: column;
+    gap: 0.7em;
 }
 
 .edit {
-    max-width: 37.5em;
+    max-width: 1600px;
     margin: 2em auto;
     width: 100%;
 }
 
+/* labels */
 .add-activity label,
 .edit label {
     font-weight: bold;
@@ -142,6 +149,23 @@ tr:hover {
 /* headings */
 h2 {
     font-size: 1.5rem;
+}
+
+/* links */
+a {
+    color: var(--background);
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.7em 1em;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: inherit;
+}
+
+a:hover {
+    filter: brightness(1.1);
 }
 
 /* responsive layout */

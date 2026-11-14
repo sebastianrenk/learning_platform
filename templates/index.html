@@ -27,14 +27,14 @@
         <section class="card add-activity">
             <h2>Add activity</h2>
             <form action="{{ url_for('add_activity') }}" method="POST">
-                <label for="subject">Subject</label><br>
-                <input type="text" id="subject" name="subject" required><br>
-                <label for="topic">Topic</label><br>
-                <input type="text" id="topic" name="topic" required><br>
-                <label for="duration">Duration</label><br>
-                <input type="number" id="duration" name="duration" min="1" required><br>
-                <label for="date">Date</label><br>
-                <input type="date" id="date" name="date" required><br>
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+                <label for="topic">Topic</label>
+                <input type="text" id="topic" name="topic" required>
+                <label for="duration">Duration</label>
+                <input type="number" id="duration" name="duration" min="1" required>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
                 <button type="submit">Add activity</button>
             </form>
         </section>
@@ -42,8 +42,8 @@
         <section class="card delete">
             <h2>Delete activity</h2>
             <form action="{{ url_for('delete_activity') }}" method="POST">
-                <label for="id">ID:</label><br>
-                <input type="number" id="id" name="id" required><br>
+                <label for="id">ID:</label>
+                <input type="number" id="id" name="id" required>
                 <button type="submit">Delete</button>
             </form>
         </section>
@@ -53,11 +53,13 @@
 
             <form action="{{ url_for('home') }}" method="GET">
                 <select name="subject">
-                        <option value="">All subjects</option>
-                    {% for subject in subjects %}
-                        <option value="{{ subject }}">{{ subject }}</option>
+                    <option value="" {% if not subject %}selected{% endif %}>All subjects</option>
+                    {% for item in subjects %}
+                        <option value="{{ item }}" {% if subject == item %}selected{% endif %}>
+                            {{ item }}
+                        </option>
                     {% endfor %}
-                </select><br>
+                </select>
                 <button type="submit">Filter</button>
             </form>
 
@@ -68,6 +70,7 @@
                     <th>Topic</th>
                     <th>Duration</th>
                     <th>Date</th>
+                    <th>Actions</th>
                 </tr>
                 <!-- Jinja loops through activities -->
                 {% for activity in activities %}
@@ -78,9 +81,7 @@
                     <td>{{ activity[3] }}</td>
                     <td>{{ activity[4] }}</td>
                     <td>
-                        <a href="{{ url_for('edit_activity', id=activity[0]) }}">
-                            <button type="submit">Edit</button>
-                        </a>
+                        <a href="{{ url_for('edit_activity', id=activity[0]) }}">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}
