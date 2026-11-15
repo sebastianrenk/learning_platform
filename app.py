@@ -21,8 +21,12 @@ def home():
     else:
         activities = tracker.get_activities()
 
+    durations = {}
+    for subject in subjects:
+        durations.update({subject: tracker.calculate_time_by_subject(subject)})
+
     # variables in render_template become accessible in html
-    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, subject=subject, subjects=subjects, activities=activities)
+    return render_template("index.html", total_time=total_time, weekly_stats=weekly_stats, subject=subject, subjects=subjects, activities=activities, durations=durations)
 
 
 @app.route("/add", methods=["POST"])

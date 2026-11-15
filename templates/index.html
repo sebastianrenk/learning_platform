@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}" defer></script>
     <title>Learning Platform</title>
 </head>
 <body>
@@ -23,6 +25,10 @@
                 <p>{{ weekly_stats[1] }} sessions</p>
             </div>
         </section>
+
+        <div>
+            <canvas id="statistics_chart"></canvas>
+        </div>
 
         <section class="card add-activity">
             <h2>Add activity</h2>
