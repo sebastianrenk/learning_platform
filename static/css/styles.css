@@ -146,6 +146,21 @@ tr:hover {
     background-color: var(--background);
 }
 
+/* charts */
+.bar-container {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: 300px;
+}
+
+.pie-container {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    height: 300px;
+}
+
 /* headings */
 h2 {
     font-size: 1.5rem;

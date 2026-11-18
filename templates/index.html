@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script>
+        const learningData = {{ durations | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/chart.js') }}" defer></script>
     <title>Learning Platform</title>
 </head>
+
 <body>
     <header class="header">
         <h1>Learning Platform</h1>
     </header>
 
     <main class="dashboard">
+        <div class="bar-container">
+            <canvas id="bar-chart"></canvas>
+        </div>
+        <div class="pie-container">
+            <canvas id="pie_chart"></canvas>
+        </div>
         <section class="card statistics">
             <div>
                 <p>Total learning time</p>
@@ -25,10 +35,6 @@
                 <p>{{ weekly_stats[1] }} sessions</p>
             </div>
         </section>
-
-        <div>
-            <canvas id="statistics_chart"></canvas>
-        </div>
 
         <section class="card add-activity">
             <h2>Add activity</h2>
