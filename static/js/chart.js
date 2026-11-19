@@ -17,6 +17,15 @@ new Chart(pie, {
     }]
   },
   options: {
+    plugins: {
+      legend: {
+        labels: {
+          family: 'sans-serif',
+          color: '#E5EDE6',
+          padding: 10
+        },
+      }
+    },
     responsive: true,
     maintainAspectRatio: false,
     scales: {
@@ -42,6 +51,15 @@ new Chart(bar, {
     }]
   },
   options: {
+    plugins: {
+      legend: {
+        labels: {
+          family: 'sans-serif',
+          color: '#E5EDE6',
+          padding: 10
+        },
+      }
+    },
     responsive: true,
     maintainAspectRatio: false,
     scales: {
