@@ -147,19 +147,31 @@ tr:hover {
 }
 
 /* charts */
+.bar-container,
+.pie-container {
+    min-width: 0;
+    height: 300px;
+    padding: 1em;
+}
+
 .bar-container {
     grid-column: 1;
     grid-row: 1;
-    width: 100%;
-    height: 300px;
 }
 
 .pie-container {
     grid-column: 2;
     grid-row: 1;
-    width: 100%;
-    height: 300px;
 }
+
+.bar-container canvas,
+.pie-container canvas {
+    display: block;
+    width: 100%;
+    height: 230px;
+}
+
+
 
 /* headings */
 h2 {
@@ -189,8 +201,14 @@ a:hover {
         grid-template-columns: 1fr;
     }
 
+    .bar-container,
+    .pie-container {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
     .activities-table {
-        grid-column: span 1;
+        grid-column: 1;
     }
 
     .statistics {
