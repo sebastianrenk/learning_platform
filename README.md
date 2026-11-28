@@ -47,7 +47,8 @@ cd learning_platform`
 **Then, open a browser and insert the url:** *http://127.0.0.1:5000*
 
 ## Project structure
-`learning_platform/
+```text
+learning_platform/
 │
 ├── (main.py)
 ├── app.py
@@ -69,7 +70,8 @@ cd learning_platform`
 │
 ├── images/
 │
-└── README.md`
+└── README.md
+```
 
 ## Status
 Version 1.0
